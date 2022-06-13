@@ -1,23 +1,21 @@
-import { data } from "msw/lib/types/context";
 import React, {useEffect} from "react";
+import QuestionItem from "./QuestionItem";
 
-function QuestionList() {
+function QuestionList({questions, setQuestions}) {
 
   useEffect(() => {
     fetch("http://localhost:4000/questions")
     .then((r) => r.json())
-    .then((data) => console.log(data))
+    .then((data) => setQuestions(data))
   }, [])
-  
-  function handleQuestionsDisplay(q){
-    data.map((question) => <QuestionItem />)
-  }
 
+  
+  
   return (
     <section>
       <h1>Quiz Questions</h1>
       <ul>
-        {/* Q.map((question) => <QuestionItem />) */}
+        {questions.map((question) => <QuestionItem key ={question.id} question={question}/>)}
       </ul>
     </section>
   );
